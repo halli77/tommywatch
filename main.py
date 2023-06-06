@@ -1,5 +1,5 @@
 # main.py 
-# secrets are defined in boot.py
+
 
 # https://github.com/Carlo47/NtpTime
 # https://github.com/TomWis97/NTPClock
@@ -10,6 +10,17 @@ from neopixel import NeoPixel
 import network
 import json
 from umqttsimple import MQTTClient
+
+
+MQTT_CLIENT_ID = "tommywatch"
+MQTT_SERVER = "172.22.31.24"
+MQTT_TOPIC_SUB = "tommywatch/trigger"
+
+# secrets are defined in boot.py
+# SSID = ""
+# PSK = ""
+# MQTT_USER = ""
+# MQTT_PASSWORD = ""
 
 
 pin = Pin(4, Pin.OUT)  
