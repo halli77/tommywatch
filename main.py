@@ -85,59 +85,41 @@ def h2pixel(h):
 
 def draw_watch(h, start, stop):
     
-    color_day = (0x00, 0xAA, 0x00)
+    color_day = (0, 204, 0)
     color_night = (5, 0, 0)
+    color_twilight = (255, 140, 0)
 
     # all LED off
     np_clear()
- 
-    # draw night
-    # night = []
-    # for i in range(start, 24):
-    #     night.append(i)
-    # for i in range(0, stop+1):
-    #     night.append(i)  
     
-    # is night?
-    isNight = True if h >= start and h < stop else False
-        
-    # draw pointer
-    np[h2pixel(h)] = color_night if isNight else color_day  
-        
-        
-    # while h in night:
-    #     night.pop(0)
-    
-    # print(night)
-    
-    # if h >= start or h <= stop:   
-    #     for i in night:
-    #         np[h2pixel(i)] = color_night    
-
-
-   
-    
-    
+    # draw pointer 
+    if h == start or h == stop:
+        np[h2pixel(h)] = color_twilight
+    elif h > start or h < stop:
+        np[h2pixel(h)] = color_night
+    else:
+        np[h2pixel(h)] = color_day
+         
     np.write()
     
 
-def demo(time, start, stop):
-    print("Start Demo (16-14 Uhr, night=19,6)")
-    for h in range(start, 24):
+def demo(start, stop):
+    print("Start Demo with night between {start} and {stop}.")
+    for h in range(14, 24):
         print (h)
         draw_watch(h, start, stop)
-        sleep(0.8)
-    for h in range(0, 14):
+        sleep(1)
+    for h in range(0, 10):
         print (h) 
         draw_watch(h, start, stop)
-        sleep(0.8)
+        sleep(1)
     print("End Demo")
 
 
 
 ############
 
-demo(12, 19, 6)
+# demo(19, 6)
 
 do_connect()
 mqtt = connect_and_subscribe()
