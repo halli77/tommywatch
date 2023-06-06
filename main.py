@@ -72,7 +72,7 @@ def mqtt_msg_received(topic, message):
     print(msg)
     
     if msg["debug"] == 1:
-        demo(msg["time"], msg["start"], msg["stop"])
+        demo(msg["start"], msg["stop"])
     else:
         draw_watch(msg["time"], msg["start"], msg["stop"])
 
@@ -116,14 +116,11 @@ def draw_watch(h, start, stop):
 
 def demo(start, stop):
     print("Start Demo with night between {start} and {stop}.")
-    for h in range(14, 24):
-        print (h)
-        draw_watch(h, start, stop)
-        sleep(1)
-    for h in range(0, 10):
-        print (h) 
-        draw_watch(h, start, stop)
-        sleep(1)
+    for i in range(5):
+        for h in range(0, 24):
+            print (h)
+            draw_watch(h, start, stop)
+            sleep(0.8)
     print("End Demo")
 
 
