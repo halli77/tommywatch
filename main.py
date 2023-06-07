@@ -50,6 +50,17 @@ def np_spinner():
             np[i-1] = (0, 0, 0)
         np.write()
         sleep(0.2)
+        
+def np_calibrate(full = False):
+    if full:
+        for i in range(12):
+            np[i] = (254, 254, 254)
+    else:
+        np_clear()
+        for i in [0, 3, 6, 9]:
+            np[i] = (254, 254, 254)
+    np.write()
+          
 
 def do_connect():
     wlan = network.WLAN(network.STA_IF)
@@ -73,6 +84,10 @@ def mqtt_msg_received(topic, message):
     
     if msg["debug"] == 1:
         demo(msg["start"], msg["stop"])
+    elif msg["debug"] == 2:
+        np_calibrate(False)
+    elif msg["debug"] == 3:
+        np_calibrate(True)
     else:
         draw_watch(msg["time"], msg["start"], msg["stop"])
 
