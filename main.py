@@ -12,7 +12,7 @@ import json
 from umqttsimple import MQTTClient
 
 
-MQTT_CLIENT_ID = "tommywatch"
+MQTT_CLIENT_ID = "tommywatch_device"
 MQTT_SERVER = "172.22.31.24"
 MQTT_TOPIC_SUB = "tommywatch/trigger"
 
@@ -76,7 +76,7 @@ def do_connect():
 
 
 def mqtt_msg_received(topic, message):
-    print("---- new mqtt meassage ----")
+    print("---- new mqtt message ----")
     print(topic)
     print(message) 
     msg = json.loads(message)
@@ -94,7 +94,7 @@ def mqtt_msg_received(topic, message):
     
 def connect_and_subscribe():
     global MQTT_CLIENT_ID, MQTT_TOPIC_SUB, MQTT_SERVER, MQTT_USER, MQTT_PASSWORD
-    client = MQTTClient(MQTT_CLIENT_ID, MQTT_SERVER, user=MQTT_USER, password=MQTT_PASSWORD)
+    client = MQTTClient(MQTT_CLIENT_ID, MQTT_SERVER, user=MQTT_USER, password=MQTT_PASSWORD, keepalive=60)
     client.set_callback(mqtt_msg_received)
     client.connect()
     client.subscribe(MQTT_TOPIC_SUB)
